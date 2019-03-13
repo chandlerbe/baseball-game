@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Baseball Game</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td valign="top">
+                <table>
+                    <tr>
+                        <td>
+                            <table id="scoreboard">
+                                <tr>
+                                    <th class="inning">&nbsp;</th>
+                                    <th class="inning text-center">1</th>
+                                    <th class="inning text-center">2</th>
+                                    <th class="inning text-center">3</th>
+                                    <th class="inning text-center">4</th>
+                                    <th class="inning text-center">5</th>
+                                    <th class="inning text-center">6</th>
+                                    <th class="inning text-center">7</th>
+                                    <th class="inning text-center">8</th>
+                                    <th class="inning text-center">9</th>
+                                    <th class="inning text-center">X</th>
+                                    <th class="inning text-center">R</th>
+                                    <th class="inning text-center">H</th>
+                                    <th class="inning text-center">E</th>
+                                </tr>
+                                <tr>
+                                    <td class="inning" data-bind="text: ballgame.visitorTeam.name"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[1]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[2]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[3]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[4]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[5]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[6]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[7]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[8]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[9]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsPerInning[10]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.runsScored"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.hits"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.visitorTeam.errors"></td>
+                                </tr>
+                                <tr>
+                                    <td class="inning" data-bind="text: ballgame.homeTeam.name"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[1]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[2]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[3]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[4]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[5]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[6]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[7]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[8]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[9]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsPerInning[10]"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.runsScored"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.hits"></td>
+                                    <td class="inning text-center" data-bind="text: ballgame.homeTeam.errors"></td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td colspan="13">
+                                        <table id="tblInningDetails">
+                                            <tr>
+                                                <td>Balls</td>
+                                                <td data-bind="text: ballgame.balls"></td>
+                                                <td>&nbsp;</td>
+                                                <td>Strikes</td>
+                                                <td data-bind="text: ballgame.strikes"></></td>
+                                                <td>&nbsp;</td>
+                                                <td>Outs</td>
+                                                <td data-bind="text: ballgame.outs"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <button id="btnThrowPitch" type="button" class="btn">Pitch</button>
+                            <span id="divPitch"></span>
+                            <span id="divHit"></span>
+                        </td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <th colspan="10" data-bind="text: ballgame.visitorTeam.name"></th>
+                                </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Player</th>
+                                    <th>Pos.</th>
+                                    <th>&nbsp;</th>
+                                    <th>AB</th>
+                                    <th>R</th>
+                                    <th>H</th>
+                                    <th>RBI</th>
+                                    <th>K</th>
+                                    <th>BB</th>
+                                </tr>
+                                <tbody data-bind="foreach: ballgame.visitorTeam.roster">
+                                    <tr data-bind="if: $data.battingOrder">
+                                        <td class="text-center" data-bind="text: jerseyNumber"></td>
+                                        <td data-bind="text: name"></td>
+                                        <td class="text-center" data-bind="text: position"></td>
+                                        <td class="text-center" data-bind="text: handed"></td>
+                                        <td class="text-center" data-bind="text: atBats"></td>
+                                        <td class="text-center" data-bind="text: runsScored"></td>
+                                        <td class="text-center" data-bind="text: hits"></td>
+                                        <td class="text-center" data-bind="text: runsBattedIn"></td>
+                                        <td class="text-center" data-bind="text: strikeouts"></td>
+                                        <td class="text-center" data-bind="text: walks"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Player</th>
+                                    <th>IP</th>
+                                    <th>H</th>
+                                    <th>R</th>
+                                    <th>ER</th>
+                                    <th>BB</th>
+                                    <th>K</th>
+                                </tr>
+                                <tr>
+                                    <td data-bind="text: ballgame.visitorTeam.pitcher().jerseyNumber"></td>
+                                    <td data-bind="text: ballgame.visitorTeam.pitcher().name"></td>
+                                    <td data-bind="text: ballgame.visitorTeam.pitcher().inningsPitched()"></td>
+                                    <td data-bind="text: ballgame.visitorTeam.pitcher().hitsAllowed"></td>
+                                    <td data-bind="text: ballgame.visitorTeam.pitcher().runsAgainst"></td>
+                                    <td data-bind="text: ballgame.visitorTeam.pitcher().earnedRunsAllowed"></td>
+                                    <td data-bind="text: ballgame.visitorTeam.pitcher().walksAllowed"></td>
+                                    <td data-bind="text: ballgame.visitorTeam.pitcher().battersStruckout"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <th colspan="10" data-bind="text: ballgame.homeTeam.name"></th>
+                                </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Player</th>
+                                    <th>Pos.</th>
+                                    <th>&nbsp;</th>
+                                    <th>AB</th>
+                                    <th>R</th>
+                                    <th>H</th>
+                                    <th>RBI</th>
+                                    <th>K</th>
+                                    <th>BB</th>
+                                </tr>
+                                <tbody data-bind="foreach: ballgame.homeTeam.roster">
+                                    <tr data-bind="if: $data.battingOrder">
+                                        <td class="text-center" data-bind="text: jerseyNumber"></td>
+                                        <td data-bind="text: name"></td>
+                                        <td class="text-center" data-bind="text: position"></td>
+                                        <td class="text-center" data-bind="text: handed"></td>
+                                        <td class="text-center" data-bind="text: atBats"></td>
+                                        <td class="text-center" data-bind="text: runsScored"></td>
+                                        <td class="text-center" data-bind="text: hits"></td>
+                                        <td class="text-center" data-bind="text: runsBattedIn"></td>
+                                        <td class="text-center" data-bind="text: strikeouts"></td>
+                                        <td class="text-center" data-bind="text: walks"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Player</th>
+                                    <th>IP</th>
+                                    <th>H</th>
+                                    <th>R</th>
+                                    <th>ER</th>
+                                    <th>BB</th>
+                                    <th>K</th>
+                                </tr>
+                                <tr>
+                                    <td data-bind="text: ballgame.homeTeam.pitcher().jerseyNumber"></td>
+                                    <td data-bind="text: ballgame.homeTeam.pitcher().name"></td>
+                                    <td data-bind="text: ballgame.homeTeam.pitcher().inningsPitched()"></td>
+                                    <td data-bind="text: ballgame.homeTeam.pitcher().hitsAllowed"></td>
+                                    <td data-bind="text: ballgame.homeTeam.pitcher().runsAgainst"></td>
+                                    <td data-bind="text: ballgame.homeTeam.pitcher().earnedRunsAllowed"></td>
+                                    <td data-bind="text: ballgame.homeTeam.pitcher().walksAllowed"></td>
+                                    <td data-bind="text: ballgame.homeTeam.pitcher().battersStruckout"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td valign="top">
+                <!--<div data-bind="foreach: ballgame.messages">
+                    <div data-bind="text: $data"></div>
+                </div>-->
+                <div id="baseball-field">
+                    <div id="baseball-field-diamond"></div>
+                    <div id="baseball-field-infield"></div>
+                    <div id="baseball-field-homeplate"></div>
+                    <div id="baseball-field-left-foulline"></div>
+                    <div id="baseball-field-right-foulline"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/knockout-3.4.2.js"></script>
+    <script src="assets/js/bbg-objects.js"></script>
+    <script src="assets/js/bbg-application.js"></script>
+</body>
+</html>

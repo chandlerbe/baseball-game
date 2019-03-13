@@ -1,0 +1,90 @@
+﻿@import "variables";
+@import "base";
+@import "layout";
+@import "presentation";
+
+#baseball-field {
+    background-color: $secondary-green;
+    width: 700px;
+    height: 650px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#baseball-field-infield {
+    background-color: $secondary-green;
+    border-radius: 15px;
+    border-top-left-radius: 25%;
+    border-bottom-right-radius: 0;
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#baseball-field-diamond {
+    background-color: $primary-brown;
+    border-radius: 15px;
+    border-top-left-radius: 25%;
+    border-bottom-right-radius: 0;
+    height: 350px;
+    width: 350px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#baseball-field-homeplate {
+    background-color: $primary-brown;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    top: 82%;
+    left: 43%;
+}
+
+#baseball-field-left-foulline {
+    background-color: #fff;
+    height: 300px;
+    width: 3px;
+    position: absolute;
+    top: 75%;
+    left: 43%;
+    transform: rotate(45deg);
+}
+#baseball-field-right-foulline {
+    background-color: #fff;
+    height: 300px;
+    width: 3px;
+    position: absolute;
+    top: 60%;
+    left: 43%;
+    transform: rotate(-45deg);
+}
+
+#scoreboard {
+    background-color: #275;
+    border: 7px double #000;
+    color: #fff;
+    font-size: 1.5em;
+
+    th, td {
+        padding: .2em .4em;
+    }
+
+    .inning {
+        border-bottom: 2px solid #fff;
+        border-left: 2px solid #fff;
+    }
+}
+
+#tblInningDetails {
+    font-size: .7em;
+    float: right;
+}

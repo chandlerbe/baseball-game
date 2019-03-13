@@ -1,0 +1,31 @@
+{
+  "name": "baseball-game",
+  "version": "1.0.0",
+  "description": "An exercise in KnockoutJS, Typescript, and CSS3.",
+  "main": "app.js",
+  "dependencies": {
+    "@types/jasmine": "^3.3.9",
+    "@types/jquery": "^3.3.29",
+    "@types/knockout": "^3.4.64",
+    "@types/knockout.validation": "0.0.36",
+    "jasmine": "^3.3.1",
+    "jquery": "^3.3.1",
+    "knockout": "^3.5.0",
+    "knockout.validation": "^2.0.3",
+    "require": "^2.4.20"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chandlerbe/baseball-game.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chandlerbe/baseball-game/issues"
+  },
+  "homepage": "https://github.com/chandlerbe/baseball-game#readme"
+}
