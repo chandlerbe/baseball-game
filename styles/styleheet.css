@@ -1,0 +1,96 @@
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; }
+
+td {
+  padding: 5px; }
+
+.btn {
+  font-size: 1.3em;
+  padding: 5px; }
+
+.text-center {
+  text-align: center; }
+
+.white-circle {
+  background-color: #fff;
+  border-radius: 50%;
+  display: table-cell;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  vertical-align: middle; }
+
+#baseball-field {
+  background-color: #2d9f71;
+  width: 700px;
+  height: 650px;
+  margin: 0 auto;
+  position: relative; }
+
+#baseball-field-infield {
+  background-color: #2d9f71;
+  border-radius: 15px;
+  border-top-left-radius: 25%;
+  border-bottom-right-radius: 0;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) rotate(45deg); }
+
+#baseball-field-diamond {
+  background-color: #6f501f;
+  border-radius: 15px;
+  border-top-left-radius: 25%;
+  border-bottom-right-radius: 0;
+  height: 350px;
+  width: 350px;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) rotate(45deg); }
+
+#baseball-field-homeplate {
+  background-color: #6f501f;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 82%;
+  left: 43%; }
+
+#baseball-field-left-foulline {
+  background-color: #fff;
+  height: 300px;
+  width: 3px;
+  position: absolute;
+  top: 75%;
+  left: 43%;
+  transform: rotate(45deg); }
+
+#baseball-field-right-foulline {
+  background-color: #fff;
+  height: 300px;
+  width: 3px;
+  position: absolute;
+  top: 60%;
+  left: 43%;
+  transform: rotate(-45deg); }
+
+#scoreboard {
+  background-color: #275;
+  border: 7px double #000;
+  color: #fff;
+  font-size: 1.5em; }
+  #scoreboard th, #scoreboard td {
+    padding: .2em .4em; }
+  #scoreboard .inning {
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff; }
+
+#tblInningDetails {
+  font-size: .7em;
+  float: right; }
