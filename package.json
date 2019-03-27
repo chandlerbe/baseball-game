@@ -1,20 +1,23 @@
 {
   "name": "baseball-game",
   "version": "1.0.0",
-  "description": "An exercise in KnockoutJS, Typescript, and CSS3.",
+  "description": "An exercise in TypeScript, KnockoutJS, Sass, and Jasmine.",
   "main": "app.js",
   "dependencies": {
-    "@types/jasmine": "^3.3.9",
     "@types/jquery": "^3.3.29",
     "@types/knockout": "^3.4.64",
     "@types/knockout.validation": "0.0.36",
-    "jasmine": "^3.3.1",
+    "@types/requirejs": "^2.1.31",
     "jquery": "^3.3.1",
     "knockout": "^3.5.0",
     "knockout.validation": "^2.0.3",
-    "require": "^2.4.20"
+    "require": "^2.4.20",
+    "requirejs": "^2.3.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/jasmine": "^3.3.9",
+    "jasmine": "^3.3.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,7 +25,7 @@
     "type": "git",
     "url": "git+https://github.com/chandlerbe/baseball-game.git"
   },
-  "author": "",
+  "author": "Bradley Chandler",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/chandlerbe/baseball-game/issues"

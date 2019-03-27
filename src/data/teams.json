@@ -1,0 +1,236 @@
+﻿[
+  {
+    "league": "AL",
+    "division": "W",
+    "year": 1984,
+    "team": "MIN",
+    "name": "Minnesota",
+    "nickname": "Twins",
+    "park": "Hubert H Humphrey Metrodome"
+  },
+  {
+    "league": "NL",
+    "division": "W",
+    "year": 1984,
+    "team": "ATL",
+    "name": "Atlanta",
+    "nickname": "Braves",
+    "park": "Atlanta-Fulton County Stadium"
+  },
+  {
+    "league": "AL",
+    "division": "E",
+    "year": 1984,
+    "team": "BAL",
+    "name": "Baltimore",
+    "nickname": "Orioles",
+    "park": "Memorial Stadium"
+  },
+  {
+    "league": "AL",
+    "division": "E",
+    "year": 1984,
+    "team": "BOS",
+    "name": "Boston",
+    "nickname": "Red Sox",
+    "park": "Fenway Park II"
+  },
+  {
+    "league": "AL",
+    "division": "W",
+    "year": 1984,
+    "team": "CAL",
+    "name": "California",
+    "nickname": "Angels",
+    "park": "Anaheim Stadium"
+  },
+  {
+    "league": "AL",
+    "division": "W",
+    "year": 1984,
+    "team": "CHA",
+    "name": "Chicago",
+    "nickname": "White Sox",
+    "park": "Comiskey Park"
+  },
+  {
+    "league": "NL",
+    "division": "E",
+    "year": 1984,
+    "team": "CHN",
+    "name": "Chicago",
+    "nickname": "Cubs",
+    "park": "Wrigley Field"
+  },
+  {
+    "league": "NL",
+    "division": "W",
+    "year": 1984,
+    "team": "CIN",
+    "name": "Cincinnati",
+    "nickname": "Reds",
+    "park": "Riverfront Stadium"
+  },
+  {
+    "league": "AL",
+    "division": "E",
+    "year": 1984,
+    "team": "CLE",
+    "name": "Cleveland",
+    "nickname": "Indians",
+    "park": "Cleveland Stadium"
+  },
+  {
+    "league": "AL",
+    "division": "E",
+    "year": 1984,
+    "team": "DET",
+    "name": "Detroit",
+    "nickname": "Tigers",
+    "park": "Tiger Stadium"
+  },
+  {
+    "league": "NL",
+    "division": "W",
+    "year": 1984,
+    "team": "HOU",
+    "name": "Houston",
+    "nickname": "Astros",
+    "park": "Astrodome"
+  },
+  {
+    "league": "AL",
+    "division": "W",
+    "year": 1984,
+    "team": "KCA",
+    "name": "Kansas City",
+    "nickname": "Royals",
+    "park": "Royals Stadium"
+  },
+  {
+    "league": "NL",
+    "division": "W",
+    "year": 1984,
+    "team": "LAN",
+    "name": "Los Angeles",
+    "nickname": "Dodgers",
+    "park": "Dodger Stadium"
+  },
+  {
+    "league": "AL",
+    "division": "E",
+    "year": 1984,
+    "team": "ML4",
+    "name": "Milwaukee",
+    "nickname": "Brewers",
+    "park": "County Stadium"
+  },
+  {
+    "league": "NL",
+    "division": "E",
+    "year": 1984,
+    "team": "MON",
+    "name": "Montreal",
+    "nickname": "Expos",
+    "park": "Stade Olympique"
+  },
+  {
+    "league": "AL",
+    "division": "E",
+    "year": 1984,
+    "team": "NYA",
+    "name": "New York",
+    "nickname": "Yankees",
+    "park": "Yankee Stadium II"
+  },
+  {
+    "league": "NL",
+    "division": "E",
+    "year": 1984,
+    "team": "NYN",
+    "name": "New York",
+    "nickname": "Mets",
+    "park": "Shea Stadium"
+  },
+  {
+    "league": "AL",
+    "division": "W",
+    "year": 1984,
+    "team": "OAK",
+    "name": "Oakland",
+    "nickname": "Athletics",
+    "park": "Oakland Coliseum"
+  },
+  {
+    "league": "NL",
+    "division": "E",
+    "year": 1984,
+    "team": "PHI",
+    "name": "Philadelphia",
+    "nickname": "Phillies",
+    "park": "Veterans Stadium"
+  },
+  {
+    "league": "NL",
+    "division": "E",
+    "year": 1984,
+    "team": "PIT",
+    "name": "Pittsburgh",
+    "nickname": "Pirates",
+    "park": "Three Rivers Stadium"
+  },
+  {
+    "league": "NL",
+    "division": "W",
+    "year": 1984,
+    "team": "SDN",
+    "name": "San Diego",
+    "nickname": "Padres",
+    "park": "Jack Murphy Stadium"
+  },
+  {
+    "league": "AL",
+    "division": "W",
+    "year": 1984,
+    "team": "SEA",
+    "name": "Seattle",
+    "nickname": "Mariners",
+    "park": "Kingdome"
+  },
+  {
+    "league": "NL",
+    "division": "W",
+    "year": 1984,
+    "team": "SFN",
+    "name": "San Francisco",
+    "nickname": "Giants",
+    "park": "Candlestick Park"
+  },
+  {
+    "league": "NL",
+    "division": "E",
+    "year": 1984,
+    "team": "SLN",
+    "name": "St. Louis",
+    "nickname": "Cardinals",
+    "park": "Busch Stadium II"
+  },
+  {
+    "league": "AL",
+    "division": "W",
+    "year": 1984,
+    "team": "TEX",
+    "name": "Texas",
+    "nickname": "Rangers",
+    "park": "Arlington Stadium"
+  },
+  {
+    "league": "AL",
+    "division": "E",
+    "year": 1984,
+    "team": "TOR",
+    "name": "Toronto",
+    "nickname": "Blue Jays",
+    "park": "Exhibition Stadium"
+  }
+]
