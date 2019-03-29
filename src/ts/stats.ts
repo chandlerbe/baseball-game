@@ -3,16 +3,16 @@ import * as ko from "knockout";
 export abstract class Stats {
   walks: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
   strikeouts: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
   hitByPitch: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 99 });
-  singles: KnockoutObservable<number> = ko
+  hits: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
   doubles: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 99 });
@@ -40,8 +40,8 @@ export abstract class Stats {
     this.hitByPitch(this.hitByPitch() + 1);
   }
 
-  incrementSingles(): void {
-    this.singles(this.singles() + 1);
+  incrementHits(): void {
+    this.hits(this.hits() + 1);
   }
 
   incrementDoubles(): void {
@@ -56,7 +56,7 @@ export abstract class Stats {
     this.sacrificeOuts(this.sacrificeOuts() + 1);
   }
 
-  hits(): number {
-    return this.singles() + this.doubles() + this.triples() + this.homeRuns();
+  singles(): number {
+    return this.hits() - this.doubles() - this.triples() - this.homeRuns();
   }
 }

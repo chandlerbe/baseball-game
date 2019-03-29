@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="description" content="JavaScript baseball game." />
     <title>Baseball Game</title>
-    <link href="/styles/styleheet.css" rel="styleheet">
+    <link href="css/styleheet.css" rel="stylesheet" />
+    <script src="node_modules/requirejs/require.js"></script>
+    <script src="src/app.js"></script>
 </head>
 <body>
     <table>
@@ -81,7 +84,6 @@
                             </table>
                         </td>
                         <td>
-                            <button id="btnThrowPitch" type="button" class="btn">Pitch</button>
                             <span id="divPitch"></span>
                             <span id="divHit"></span>
                         </td>
@@ -219,7 +221,5 @@
             </td>
         </tr>
     </table>
-
-    <script src="/src/app.js"></script>
 </body>
 </html>

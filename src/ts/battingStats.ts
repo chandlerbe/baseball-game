@@ -2,13 +2,22 @@ import { Stats } from "./stats";
 import * as ko from "knockout";
 
 export class BattingStats extends Stats {
-  plateAppearances: KnockoutObservable<number> = ko
+  atBats: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
   runsScored: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
   runsBattedIn: KnockoutObservable<number> = ko
+    .observable(0)
+    .extend({ min: 0, max: 999 });
+  stolenBases: KnockoutObservable<number> = ko
+    .observable(0)
+    .extend({ min: 0, max: 999 });
+  caughtStealing: KnockoutObservable<number> = ko
+    .observable(0)
+    .extend({ min: 0, max: 99 });
+  groundedIntoDoublePlay: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 99 });
 
@@ -16,8 +25,8 @@ export class BattingStats extends Stats {
     super();
   }
 
-  incrementPlateAppearances(): void {
-    this.plateAppearances(this.plateAppearances() + 1);
+  incrementAtBats(): void {
+    this.atBats(this.atBats() + 1);
   }
 
   incrementRunsScored(): void {
@@ -28,8 +37,8 @@ export class BattingStats extends Stats {
     this.runsBattedIn(this.runsBattedIn() + 1);
   }
 
-  atBats(): number {
-    return this.plateAppearances() - this.sacrificeOuts() - this.walks();
+  plateAppearances(): number {
+    return this.atBats() + this.sacrificeOuts() + this.walks();
   }
 
   battingAverage(): string {

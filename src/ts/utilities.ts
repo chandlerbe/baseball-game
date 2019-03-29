@@ -34,19 +34,6 @@ export function getRandomNumber(
   return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
 }
 
-export function generateNumber(
-  minValue: number = 10,
-  maxValue: number = 30
-): number {
-  let numbers = [];
-
-  for (var i = minValue; i <= maxValue; i++) {
-    numbers.push(i);
-  }
-
-  return numbers[getRandomNumber(numbers.length)];
-}
-
 export function getHit(batter: Player): typeOfHits {
   let hits = [];
 

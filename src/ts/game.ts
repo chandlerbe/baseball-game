@@ -55,8 +55,8 @@ export class Game {
         break;
       case util.typeOfPitches.HitByPitch:
         this.advanceBaseRunners();
-        this.playerAtBat.battingStats.incrementHitByPitch();
-        this.playerPitching.pitchingStats.incrementHitByPitch();
+        this.playerAtBat.gameBattingStats.incrementHitByPitch();
+        this.playerPitching.gamePitchingStats.incrementHitByPitch();
         break;
       case util.typeOfPitches.Strike:
         this.incrementStrikes();
@@ -104,13 +104,13 @@ export class Game {
 
   advanceBaseRunners(action?: util.typeOfHits): void {
     if (this.runnerOnThirdBase) {
-      this.runnerOnThirdBase.battingStats.incrementRunsScored();
+      this.runnerOnThirdBase.gameBattingStats.incrementRunsScored();
 
-      this.playerAtBat.battingStats.incrementRunsBattedIn();
+      this.playerAtBat.gameBattingStats.incrementRunsBattedIn();
 
-      this.playerPitching.pitchingStats.incrementRunsAllowed();
+      this.playerPitching.gamePitchingStats.incrementRunsAllowed();
       if (action !== util.typeOfHits.Error) {
-        this.playerPitching.pitchingStats.incrementEarnedRunsAllowed();
+        this.playerPitching.gamePitchingStats.incrementEarnedRunsAllowed();
       }
 
       this.scoreboard.incrementRuns(this.inning, this.homeTeam, this.teamAtBat);
@@ -133,19 +133,19 @@ export class Game {
 
   incrementBalls(): void {
     if (this.scoreboard.incrementBalls()) {
-      this.playerAtBat.battingStats.incrementWalks();
+      this.playerAtBat.gameBattingStats.incrementWalks();
 
-      this.playerPitching.pitchingStats.incrementBattersFaced();
-      this.playerPitching.pitchingStats.incrementWalks();
+      this.playerPitching.gamePitchingStats.incrementBattersFaced();
+      this.playerPitching.gamePitchingStats.incrementWalks();
     }
   }
 
   incrementStrikes(): void {
     if (this.scoreboard.incrementStrikes()) {
-      this.playerAtBat.battingStats.incrementStrikeouts();
+      this.playerAtBat.gameBattingStats.incrementStrikeouts();
 
-      this.playerPitching.pitchingStats.incrementBattersFaced();
-      this.playerPitching.pitchingStats.incrementStrikeouts();
+      this.playerPitching.gamePitchingStats.incrementBattersFaced();
+      this.playerPitching.gamePitchingStats.incrementStrikeouts();
 
       this.incrementOuts();
     }
@@ -156,7 +156,7 @@ export class Game {
       return;
     }
 
-    this.playerPitching.pitchingStats.incrementOutsRecorded();
+    this.playerPitching.gamePitchingStats.incrementOutsRecorded();
 
     if (this.scoreboard.incrementOuts()) {
       this.incrementInning();
@@ -205,16 +205,14 @@ export class Game {
     }
   }
 
-  private getTeamRoster(team: Team): void {
-    var battingOrder = 1;
+  private getTeamRoster(team: Team, year: number): void {
+    var battersXhr = new XMLHttpRequest();
+    battersXhr.open("GET", "../data/batters.json", true);
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../data/batters.json", true);
-
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        var data = JSON.parse(xhr.responseText);
-        var players = data.find(w => w.team === team.id);
+    battersXhr.onload = function() {
+      if (battersXhr.status === 200) {
+        var data = JSON.parse(battersXhr.responseText);
+        var players = data.find(w => w.team === team.id && w.year === year);
 
         for (let i = 0; i < players.length; i++) {
           team.roster.push(
@@ -224,13 +222,38 @@ export class Game {
               PositionFactory.CreateInstance(players[i].position),
               players[i].bats,
               players[i].throws,
-              players[i].jerseyNumber
+              util.getRandomNumber(1, 99)
             )
           );
         }
       }
     };
 
-    xhr.send();
+    battersXhr.send();
+
+    var pitchersXhr = new XMLHttpRequest();
+    pitchersXhr.open("GET", "../data/pitchers.json", true);
+
+    pitchersXhr.onload = function() {
+      if (pitchersXhr.status === 200) {
+        var data = JSON.parse(pitchersXhr.responseText);
+        var players = data.find(w => w.team === team.id && w.year === year);
+
+        for (let i = 0; i < players.length; i++) {
+          team.roster.push(
+            new Player(
+              players[i].firstName,
+              players[i].lastName,
+              PositionFactory.CreateInstance(Positions.Pitcher),
+              players[i].bats,
+              players[i].throws,
+              util.getRandomNumber(1, 99)
+            )
+          );
+        }
+      }
+    };
+
+    pitchersXhr.send();
   }
 }

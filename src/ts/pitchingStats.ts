@@ -2,21 +2,33 @@ import { Stats } from "./stats";
 import * as ko from "knockout";
 
 export class PitchingStats extends Stats {
+  wins: KnockoutObservable<number> = ko
+    .observable(0)
+    .extend({ min: 0, max: 99 });
+  loses: KnockoutObservable<number> = ko
+    .observable(0)
+    .extend({ min: 0, max: 99 });
+  gamesStarted: KnockoutObservable<number> = ko
+    .observable(0)
+    .extend({ min: 0, max: 99 });
+  saves: KnockoutObservable<number> = ko
+    .observable(0)
+    .extend({ min: 0, max: 99 });
   outsRecorded: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
   battersFaced: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
   hitsAllowed: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
   earnedRunsAllowed: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
   runsAllowed: KnockoutObservable<number> = ko
     .observable(0)
-    .extend({ min: 0, max: 99 });
+    .extend({ min: 0, max: 999 });
 
   constructor() {
     super();
