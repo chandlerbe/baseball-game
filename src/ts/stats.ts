@@ -25,6 +25,9 @@ export abstract class Stats {
   sacrificeOuts: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 99 });
+  groundedIntoDoublePlay: KnockoutObservable<number> = ko
+    .observable(0)
+    .extend({ min: 0, max: 99 });
 
   constructor() {}
 

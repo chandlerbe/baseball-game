@@ -13,7 +13,6 @@ export class Team {
 
   init(): void {
     this.getNextBatter();
-    this.playerPitching = this.roster.find(w => w.position.name === "SP");
   }
 
   getLineUp(): Player[] {
@@ -36,17 +35,11 @@ export class Team {
     }
   }
 
-  changePitcher(): void {
-    this.playerPitching = this.roster.find(
-      w => w.position.name === "RP" && w.pitchingStats.battersFaced() === 0
-    );
+  changePitcher(newPitcher: Player): void {
+    this.playerPitching = newPitcher;
   }
 
   changeBatter(batter: Player): void {
-    if (batter.battingStats.plateAppearances() > 0) {
-      return;
-    }
-
     batter.battingOrder = this.playerBatting.battingOrder;
     this.playerBatting.battingOrder = 0;
   }
@@ -66,7 +59,7 @@ export class Team {
   runs(): number {
     let total = 0;
 
-    this.roster.forEach(e => (total += e.battingStats.runsScored()));
+    this.roster.forEach(e => (total += e.gameStats.battingStat.runsScored()));
 
     return total;
   }
@@ -74,7 +67,7 @@ export class Team {
   hits(): number {
     let total = 0;
 
-    this.roster.forEach(e => (total += e.battingStats.hits()));
+    this.roster.forEach(e => (total += e.gameStats.battingStat.hits()));
 
     return total;
   }

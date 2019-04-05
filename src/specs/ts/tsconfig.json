@@ -1,5 +1,5 @@
 {
-  "extends": "../base.config",
+  "extends": "../../base.config",
   "compilerOptions": {
     "outDir": "../",
     //"outFile": "../app-optimized.js"

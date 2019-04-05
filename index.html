@@ -15,6 +15,17 @@
                 <table>
                     <tr>
                         <td>
+                            <div>
+                                Home Team
+                                <select id="ddlHomeTeam"></select>
+                                &nbsp;
+                                Visiting Team
+                                <select id="ddlVisitingTeam"></select>
+                                &nbsp;
+                                <button id="btnStartGame">Start Game</button>
+                            </div>
+                            <br />
+
                             <table id="scoreboard">
                                 <tr>
                                     <th class="inning">&nbsp;</th>
@@ -208,15 +219,19 @@
                 </table>
             </td>
             <td valign="top">
-                <!--<div data-bind="foreach: ballgame.messages">
-                    <div data-bind="text: $data"></div>
-                </div>-->
                 <div id="baseball-field">
+                    <div id="home-team-message-board" data-bind="text: ballgame.message"></div>
+                    <div id="visiting-team-message-board" data-bind="text: ballgame.message"></div>
                     <div id="baseball-field-diamond"></div>
                     <div id="baseball-field-infield"></div>
-                    <div id="baseball-field-homeplate"></div>
-                    <div id="baseball-field-left-foulline"></div>
-                    <div id="baseball-field-right-foulline"></div>
+                    <div id="baseball-field-pitching-circle"></div>
+                    <div id="baseball-field-homeplate-circle"></div>
+                    <hr class="baseball-field-foulline leftfield-foulline">
+                    <hr class="baseball-field-foulline rightfield-foulline">
+                    <div class="baseball-base first-base"></div>
+                    <div class="baseball-base second-base"></div>
+                    <div class="baseball-base third-base"></div>
+                    <div class="baseball-base home-plate"></div>
                 </div>
             </td>
         </tr>

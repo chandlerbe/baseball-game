@@ -4,7 +4,7 @@ describe("when calling batting stats methods the function", () => {
   it("increment plate appearances should be 1", done => {
     let bs = new BattingStats();
 
-    bs.incrementPlateAppearances();
+    bs.incrementAtBats();
     expect(bs.plateAppearances()).toEqual(1);
   });
   it("increment runs scored should be 1", done => {

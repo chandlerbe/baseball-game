@@ -3,88 +3,153 @@
 @import "layout";
 @import "presentation";
 
+#home-team-message-board {
+  background-color: #222;
+  height: 50px;
+  width: 150px;
+  position: absolute;
+  color: #fff;
+  bottom: 45px;
+  left: 45px;
+
+  font: {
+    family: "Courier New", Courier, monospace;
+    size: 12pt;
+  }
+}
+#visiting-team-message-board {
+  background-color: #222;
+  height: 50px;
+  width: 150px;
+  position: absolute;
+  color: #fff;
+  bottom: 45px;
+  right: 45px;
+
+  font: {
+    family: "Courier New", Courier, monospace;
+    size: 12pt;
+  }
+}
+
 #baseball-field {
-    background-color: $secondary-green;
-    width: 700px;
-    height: 650px;
-    margin: 0 auto;
-    position: relative;
+  background-color: $secondary-green;
+  border: 1px solid #000;
+  width: $baseball-field-width;
+  height: $baseball-field-height;
+  margin: 0 auto;
+  position: relative;
 }
 
 #baseball-field-infield {
-    background-color: $secondary-green;
-    border-radius: 15px;
-    border-top-left-radius: 25%;
-    border-bottom-right-radius: 0;
-    height: 200px;
-    width: 200px;
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) rotate(45deg);
+  background-color: $secondary-green;
+  border-radius: 15px;
+  border-top-left-radius: 25%;
+  border-bottom-right-radius: 0;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: $baseball-field-height * 0.65;
+  left: $baseball-field-width * 0.5;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 #baseball-field-diamond {
-    background-color: $primary-brown;
-    border-radius: 15px;
-    border-top-left-radius: 25%;
-    border-bottom-right-radius: 0;
-    height: 350px;
-    width: 350px;
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) rotate(45deg);
+  background-color: $primary-brown;
+  border-radius: 15px;
+  border-top-left-radius: 25%;
+  border-bottom-right-radius: 0;
+  height: $baseball-field-width / 2;
+  width: $baseball-field-width / 2;
+  position: absolute;
+  top: $baseball-field-height * 0.55;
+  left: $baseball-field-width / 2;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
-#baseball-field-homeplate {
-    background-color: $primary-brown;
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    position: absolute;
-    top: 82%;
-    left: 43%;
+#baseball-field-pitching-circle {
+  background-color: $primary-brown;
+  border-radius: 50%;
+  height: 75px;
+  width: 75px;
+  position: absolute;
+  bottom: 185px;
+  left: 312px;
 }
 
-#baseball-field-left-foulline {
-    background-color: #fff;
-    height: 300px;
-    width: 3px;
-    position: absolute;
-    top: 75%;
-    left: 43%;
-    transform: rotate(45deg);
+#baseball-field-homeplate-circle {
+  background-color: $primary-brown;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: $baseball-field-height * 0.82;
+  left: $baseball-field-width * 0.43;
 }
-#baseball-field-right-foulline {
-    background-color: #fff;
-    height: 300px;
-    width: 3px;
-    position: absolute;
-    top: 60%;
-    left: 43%;
+
+.baseball-base {
+  background-color: #fff;
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  transform: rotate(45deg);
+}
+
+.first-base {
+  top: 408px;
+  right: 180px;
+}
+.second-base {
+  top: 257px;
+  left: 345px;
+}
+.third-base {
+  top: 408px;
+  left: 180px;
+}
+.home-plate {
+  bottom: 64px;
+  left: 346px;
+  transform: rotate(0deg);
+}
+
+.baseball-field-foulline {
+  background-color: #fff;
+  border: 0;
+  position: absolute;
+  width: 500px;
+  height: 2px;
+
+  .rightfield-foulline {
     transform: rotate(-45deg);
+    left: 285px;
+    bottom: 242px;
+  }
+  .leftfield-foulline {
+    transform: rotate(45deg);
+    left: -85px;
+    bottom: 242px;
+  }
 }
 
 #scoreboard {
-    background-color: #275;
-    border: 7px double #000;
-    color: #fff;
-    font-size: 1.5em;
+  background-color: #275;
+  border: 7px double #000;
+  color: #fff;
+  font-size: 1.5em;
 
-    th, td {
-        padding: .2em .4em;
-    }
+  th,
+  td {
+    padding: 0.2em 0.4em;
+  }
 
-    .inning {
-        border-bottom: 2px solid #fff;
-        border-left: 2px solid #fff;
-    }
+  .inning {
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
+  }
 }
 
 #tblInningDetails {
-    font-size: .7em;
-    float: right;
+  font-size: 0.7em;
+  float: right;
 }

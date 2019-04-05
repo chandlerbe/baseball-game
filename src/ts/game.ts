@@ -1,5 +1,5 @@
 import { Player } from "./player";
-import { Position, PositionFactory, Positions } from "./position";
+import { PositionFactory } from "./position";
 import { Scoreboard } from "./scoreboard";
 import { Team } from "./team";
 import * as util from "./utilities";
@@ -30,8 +30,8 @@ export class Game {
   constructor(visitors: Team, homers: Team) {
     this.inning = 1;
 
-    this.getTeamRoster(visitors);
-    this.getTeamRoster(homers);
+    this.getTeamRoster(visitors, 1984);
+    this.getTeamRoster(homers, 1984);
 
     this.visitorTeam = visitors;
     this.homeTeam = homers;
@@ -55,8 +55,8 @@ export class Game {
         break;
       case util.typeOfPitches.HitByPitch:
         this.advanceBaseRunners();
-        this.playerAtBat.gameBattingStats.incrementHitByPitch();
-        this.playerPitching.gamePitchingStats.incrementHitByPitch();
+        this.playerAtBat.gameStats.battingStat.incrementHitByPitch();
+        this.playerPitching.gameStats.pitchingStat.incrementHitByPitch();
         break;
       case util.typeOfPitches.Strike:
         this.incrementStrikes();
@@ -104,13 +104,13 @@ export class Game {
 
   advanceBaseRunners(action?: util.typeOfHits): void {
     if (this.runnerOnThirdBase) {
-      this.runnerOnThirdBase.gameBattingStats.incrementRunsScored();
+      this.runnerOnThirdBase.gameStats.battingStat.incrementRunsScored();
 
-      this.playerAtBat.gameBattingStats.incrementRunsBattedIn();
+      this.playerAtBat.gameStats.battingStat.incrementRunsBattedIn();
 
-      this.playerPitching.gamePitchingStats.incrementRunsAllowed();
+      this.playerPitching.gameStats.pitchingStat.incrementRunsAllowed();
       if (action !== util.typeOfHits.Error) {
-        this.playerPitching.gamePitchingStats.incrementEarnedRunsAllowed();
+        this.playerPitching.gameStats.pitchingStat.incrementEarnedRunsAllowed();
       }
 
       this.scoreboard.incrementRuns(this.inning, this.homeTeam, this.teamAtBat);
@@ -133,19 +133,19 @@ export class Game {
 
   incrementBalls(): void {
     if (this.scoreboard.incrementBalls()) {
-      this.playerAtBat.gameBattingStats.incrementWalks();
+      this.playerAtBat.gameStats.battingStat.incrementWalks();
 
-      this.playerPitching.gamePitchingStats.incrementBattersFaced();
-      this.playerPitching.gamePitchingStats.incrementWalks();
+      this.playerPitching.gameStats.pitchingStat.incrementBattersFaced();
+      this.playerPitching.gameStats.pitchingStat.incrementWalks();
     }
   }
 
   incrementStrikes(): void {
     if (this.scoreboard.incrementStrikes()) {
-      this.playerAtBat.gameBattingStats.incrementStrikeouts();
+      this.playerAtBat.gameStats.battingStat.incrementStrikeouts();
 
-      this.playerPitching.gamePitchingStats.incrementBattersFaced();
-      this.playerPitching.gamePitchingStats.incrementStrikeouts();
+      this.playerPitching.gameStats.pitchingStat.incrementBattersFaced();
+      this.playerPitching.gameStats.pitchingStat.incrementStrikeouts();
 
       this.incrementOuts();
     }
@@ -156,7 +156,7 @@ export class Game {
       return;
     }
 
-    this.playerPitching.gamePitchingStats.incrementOutsRecorded();
+    this.playerPitching.gameStats.pitchingStat.incrementOutsRecorded();
 
     if (this.scoreboard.incrementOuts()) {
       this.incrementInning();
@@ -206,7 +206,8 @@ export class Game {
   }
 
   private getTeamRoster(team: Team, year: number): void {
-    var battersXhr = new XMLHttpRequest();
+    let self = this;
+    let battersXhr = new XMLHttpRequest();
     battersXhr.open("GET", "../data/batters.json", true);
 
     battersXhr.onload = function() {
@@ -215,16 +216,32 @@ export class Game {
         var players = data.find(w => w.team === team.id && w.year === year);
 
         for (let i = 0; i < players.length; i++) {
-          team.roster.push(
-            new Player(
-              players[i].firstName,
-              players[i].lastName,
-              PositionFactory.CreateInstance(players[i].position),
-              players[i].bats,
-              players[i].throws,
-              util.getRandomNumber(1, 99)
-            )
+          let player = self.createPlayer(players[i]);
+
+          player.seasonStats.battingStat.atBats(players[i].atBats);
+          player.seasonStats.battingStat.caughtStealing(
+            players[i].caughtStealing
           );
+          player.seasonStats.battingStat.doubles(players[i].doubles);
+          player.seasonStats.battingStat.groundedIntoDoublePlay(
+            players[i].groundedIntoDoublePlay
+          );
+          player.seasonStats.battingStat.hitByPitch(players[i].hitByPitch);
+          player.seasonStats.battingStat.hits(players[i].hits);
+          player.seasonStats.battingStat.homeRuns(players[i].homeRuns);
+          player.seasonStats.battingStat.runsBattedIn(players[i].runsBattedIn);
+          player.seasonStats.battingStat.runsScored(players[i].runsScored);
+          player.seasonStats.battingStat.sacrificeOuts(
+            players[i].sacrificeOuts
+          );
+          player.seasonStats.battingStat.stolenBases(players[i].stolenBases);
+          player.seasonStats.battingStat.strikeouts(players[i].strikeouts);
+          player.seasonStats.battingStat.triples(players[i].triples);
+          player.seasonStats.battingStat.walks(players[i].walks);
+
+          self.addPositions(player, players[i].positions);
+
+          team.roster.push(player);
         }
       }
     };
@@ -240,20 +257,66 @@ export class Game {
         var players = data.find(w => w.team === team.id && w.year === year);
 
         for (let i = 0; i < players.length; i++) {
-          team.roster.push(
-            new Player(
-              players[i].firstName,
-              players[i].lastName,
-              PositionFactory.CreateInstance(Positions.Pitcher),
-              players[i].bats,
-              players[i].throws,
-              util.getRandomNumber(1, 99)
-            )
+          let player = self.createPlayer(players[i]);
+
+          player.seasonStats.pitchingStat.earnedRunsAllowed(
+            players[i].earnedRuns
           );
+          player.seasonStats.pitchingStat.gamesStarted(players[i].gamesStarted);
+          player.seasonStats.pitchingStat.gamesFinished(
+            players[i].gamesFinished
+          );
+          player.seasonStats.pitchingStat.hitByPitch(players[i].hitByPitch);
+          player.seasonStats.pitchingStat.groundedIntoDoublePlay(
+            players[i].groundedIntoDoublePlay
+          );
+          player.seasonStats.pitchingStat.hitByPitch(players[i].hitByPitch);
+          player.seasonStats.pitchingStat.hits(players[i].hits);
+          player.seasonStats.pitchingStat.homeRuns(players[i].homeRunsAllowed);
+          player.seasonStats.pitchingStat.loses(players[i].loses);
+          player.seasonStats.pitchingStat.runsAllowed(players[i].runsAllowed);
+          player.seasonStats.pitchingStat.outsRecorded(
+            players[i].numberOfOutsPitched
+          );
+          player.seasonStats.pitchingStat.sacrificeOuts(
+            players[i].sacrificeOuts
+          );
+          player.seasonStats.pitchingStat.saves(players[i].saves);
+          player.seasonStats.pitchingStat.strikeouts(players[i].strikeouts);
+          player.seasonStats.pitchingStat.triples(players[i].triples);
+          player.seasonStats.pitchingStat.walks(players[i].walks);
+          player.seasonStats.pitchingStat.wins(players[i].wins);
+
+          self.addPositions(player, players[i].positions);
+
+          team.roster.push(player);
         }
       }
     };
 
     pitchersXhr.send();
+  }
+
+  private createPlayer(player: any): Player {
+    return new Player(
+      player.firstName,
+      player.lastName,
+      player.bats,
+      player.throws,
+      util.getRandomNumber(1, 99)
+    );
+  }
+
+  private addPositions(player: any, positions: any[]): void {
+    for (let k = 0; k < positions.length; k++) {
+      player.seasonStats.addPosition(
+        PositionFactory.CreateInstance(
+          positions[k].position,
+          positions[k].games,
+          positions[k].gamesStarted,
+          positions[k].errors
+        )
+      );
+    }
   }
 }

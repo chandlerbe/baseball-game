@@ -4,21 +4,45 @@ define(["require", "exports", "./stats", "knockout"], function (require, exports
     class PitchingStats extends stats_1.Stats {
         constructor() {
             super();
+            this.wins = ko
+                .observable(0)
+                .extend({ min: 0, max: 99 });
+            this.loses = ko
+                .observable(0)
+                .extend({ min: 0, max: 99 });
+            this.gamesFinished = ko
+                .observable(0)
+                .extend({ min: 0, max: 99 });
+            this.gamesStarted = ko
+                .observable(0)
+                .extend({ min: 0, max: 99 });
+            this.saves = ko
+                .observable(0)
+                .extend({ min: 0, max: 99 });
             this.outsRecorded = ko
                 .observable(0)
-                .extend({ min: 0, max: 99 });
+                .extend({ min: 0, max: 999 });
             this.battersFaced = ko
                 .observable(0)
-                .extend({ min: 0, max: 99 });
-            this.hitsAllowed = ko
-                .observable(0)
-                .extend({ min: 0, max: 99 });
+                .extend({ min: 0, max: 999 });
             this.earnedRunsAllowed = ko
                 .observable(0)
-                .extend({ min: 0, max: 99 });
+                .extend({ min: 0, max: 999 });
             this.runsAllowed = ko
                 .observable(0)
-                .extend({ min: 0, max: 99 });
+                .extend({ min: 0, max: 999 });
+            this.pitchingAbility =
+                ((this.wins() +
+                    this.saves() +
+                    this.strikeouts() +
+                    this.outsRecorded() -
+                    this.hits() -
+                    this.walks() -
+                    this.homeRuns() -
+                    this.runsAllowed() -
+                    this.loses()) /
+                    555) *
+                    100;
         }
         incrementOutsRecorded() {
             this.outsRecorded(this.outsRecorded() + 1);
@@ -27,7 +51,7 @@ define(["require", "exports", "./stats", "knockout"], function (require, exports
             this.battersFaced(this.battersFaced() + 1);
         }
         incrementHitsAllowed() {
-            this.hitsAllowed(this.hitsAllowed() + 1);
+            this.hits(this.hits() + 1);
         }
         incrementEarnedRunsAllowed() {
             this.earnedRunsAllowed(this.earnedRunsAllowed() + 1);

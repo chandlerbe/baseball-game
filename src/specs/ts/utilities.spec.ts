@@ -1,5 +1,4 @@
 import { Player } from "../../ts/player";
-import { Position } from "../../ts/position";
 import * as util from "../../ts/utilities";
 
 describe("when calling utilities methods the function", () => {
@@ -9,14 +8,8 @@ describe("when calling utilities methods the function", () => {
     expect(x).toBeGreaterThanOrEqual(0);
     expect(x).toBeLessThanOrEqual(10);
   });
-  it("should generate a number between 1 and 50", () => {
-    let y = util.generateNumber(1, 50);
-
-    expect(y).toBeGreaterThanOrEqual(1);
-    expect(y).toBeLessThanOrEqual(50);
-  });
   it("should get a hit for a player.", () => {
-    let batter = new Player("Joe Smith", new Position("1B", 3), "R", 7, 1);
+    let batter = new Player("Joe", "Smith", "R", "R", 7, 1);
 
     spyOn(util, "getHit");
     let hit = util.getHit(batter);

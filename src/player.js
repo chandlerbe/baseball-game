@@ -1,30 +1,22 @@
-define(["require", "exports", "./battingStats", "./pitchingStats", "./utilities"], function (require, exports, battingStats_1, pitchingStats_1, utilities_1) {
+define(["require", "exports", "./playerStats"], function (require, exports, playerStats_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class Player {
-        constructor(name, position, handedness, jerseyNumber, battingOrder) {
-            this.name = name;
-            this.position = position;
-            this.handedness = handedness;
+        constructor(firstName, lastName, bats, throws, jerseyNumber, battingOrder) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.bats = bats;
+            this.throws = throws;
             this.jerseyNumber = jerseyNumber;
             this.battingOrder = battingOrder;
             if (!battingOrder) {
                 battingOrder = 0;
             }
-            this.battingStats = new battingStats_1.BattingStats();
-            this.pitchingStats = new pitchingStats_1.PitchingStats();
-            this.pitchingAbility = utilities_1.generateNumber();
-            this.hitForAverageAbility = utilities_1.generateNumber();
-            this.hitForPowerAbility = utilities_1.generateNumber();
-            this.speedAbility = utilities_1.generateNumber();
-            if (position.name === "SP" || position.name === "RP") {
-                this.pitchingAbility = utilities_1.generateNumber(75, 99);
-            }
-            else {
-                this.hitForAverageAbility = utilities_1.generateNumber(70, 99);
-                this.hitForPowerAbility = utilities_1.generateNumber(70, 99);
-                this.speedAbility = utilities_1.generateNumber(70, 99);
-            }
+            this.gameStats = new playerStats_1.PlayerStats();
+            this.seasonStats = new playerStats_1.PlayerStats();
+        }
+        displayName() {
+            return `${this.lastName}, ${this.firstName.substring(0, 1)}.`;
         }
     }
     exports.Player = Player;

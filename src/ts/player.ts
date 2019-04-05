@@ -1,21 +1,12 @@
-import { BattingStats } from "./battingStats";
-import { PitchingStats } from "./pitchingStats";
-import { Position } from "./position";
+import { PlayerStats } from "./playerStats";
 
 export class Player {
-  readonly pitchingAbility: number;
-  readonly hitForAverageAbility: number;
-  readonly hitForPowerAbility: number;
-  readonly speedAbility: number;
-  seasonBattingStats: BattingStats;
-  seasonPitchingStats: PitchingStats;
-  gameBattingStats: BattingStats;
-  gamePitchingStats: PitchingStats;
+  gameStats: PlayerStats;
+  seasonStats: PlayerStats;
 
   constructor(
     public firstName: string,
     public lastName: string,
-    public position: Position,
     public bats: string,
     public throws: string,
     public jerseyNumber: number,
@@ -25,14 +16,8 @@ export class Player {
       battingOrder = 0;
     }
 
-    this.seasonBattingStats = new BattingStats();
-    this.seasonPitchingStats = new PitchingStats();
-    this.gameBattingStats = new BattingStats();
-    this.gamePitchingStats = new PitchingStats();
-    this.pitchingAbility = 0;
-    this.hitForAverageAbility = 0;
-    this.hitForPowerAbility = 0;
-    this.speedAbility = 0;
+    this.gameStats = new PlayerStats();
+    this.seasonStats = new PlayerStats();
   }
 
   displayName(): string {

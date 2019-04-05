@@ -37,19 +37,19 @@ export function getRandomNumber(
 export function getHit(batter: Player): typeOfHits {
   let hits = [];
 
-  for (var i = 0; i < batter.hitForAverageAbility; i++) {
+  for (var i = 0; i < batter.seasonStats.battingStat.hitForAverageAbility; i++) {
     hits.push(typeOfHits.Single);
   }
-  for (var i = 0; i < batter.hitForAverageAbility / 4; i++) {
+  for (var i = 0; i < batter.seasonStats.battingStat.hitForAverageAbility / 4; i++) {
     hits.push(typeOfHits.Double);
   }
-  for (var i = 0; i < batter.hitForAverageAbility / 10; i++) {
+  for (var i = 0; i < batter.seasonStats.battingStat.hitForAverageAbility / 10; i++) {
     hits.push(typeOfHits.HomeRun);
   }
-  for (var i = 0; i < batter.hitForAverageAbility / 12; i++) {
+  for (var i = 0; i < batter.seasonStats.battingStat.hitForAverageAbility / 12; i++) {
     hits.push(typeOfHits.Triple);
   }
-  for (var i = 0; i < batter.hitForAverageAbility / 15; i++) {
+  for (var i = 0; i < batter.seasonStats.battingStat.hitForAverageAbility / 15; i++) {
     hits.push(typeOfHits.Error);
   }
 
@@ -80,12 +80,12 @@ export function getOut(): typeOfOuts {
 export function getPitch(pitcher: Player): typeOfPitches {
   let pitches = [];
 
-  for (let i = 0; i < pitcher.pitchingAbility; i++) {
+  for (let i = 0; i < pitcher.seasonStats.pitchingStat.pitchingAbility; i++) {
     pitches.push(typeOfPitches.Strike);
   }
   for (
     let i = 0;
-    i < pitcher.pitchingAbility - pitcher.pitchingAbility / 3;
+    i < pitcher.seasonStats.pitchingStat.pitchingAbility - pitcher.seasonStats.pitchingStat.pitchingAbility / 3;
     i++
   ) {
     pitches.push(typeOfPitches.Ball);

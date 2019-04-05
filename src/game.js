@@ -1,30 +1,7 @@
 define(["require", "exports", "./player", "./position", "./scoreboard", "./utilities"], function (require, exports, player_1, position_1, scoreboard_1, util) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    //import * as teams from "../data/teams.json";
-    //import * as players from "../data/players.json";
     class Game {
-        constructor(visitors, homers) {
-            this.handedness = ["R", "L"];
-            this.positions = [
-                new position_1.Position("C", 2),
-                new position_1.Position("1B", 3),
-                new position_1.Position("2B", 4),
-                new position_1.Position("SS", 6),
-                new position_1.Position("3B", 5),
-                new position_1.Position("LF", 7),
-                new position_1.Position("CF", 8),
-                new position_1.Position("RF", 9)
-            ];
-            this.names = [];
-            this.inning = 1;
-            this.generateRoster(visitors.roster);
-            this.generateRoster(homers.roster);
-            this.visitorTeam = visitors;
-            this.homeTeam = homers;
-            this.setTeamAtBat(this.visitorTeam);
-            this.scoreboard = new scoreboard_1.Scoreboard(this.homeTeam.name, this.visitorTeam.name);
-        }
         get inning() {
             return this._inning;
         }
@@ -35,6 +12,15 @@ define(["require", "exports", "./player", "./position", "./scoreboard", "./utili
             else {
                 this._inning = 1;
             }
+        }
+        constructor(visitors, homers) {
+            this.inning = 1;
+            this.getTeamRoster(visitors, 1984);
+            this.getTeamRoster(homers, 1984);
+            this.visitorTeam = visitors;
+            this.homeTeam = homers;
+            this.setTeamAtBat(this.visitorTeam);
+            this.scoreboard = new scoreboard_1.Scoreboard(this.homeTeam.name, this.visitorTeam.name);
         }
         throwPitch() {
             if (this.isGameOver()) {
@@ -49,8 +35,8 @@ define(["require", "exports", "./player", "./position", "./scoreboard", "./utili
                     break;
                 case util.typeOfPitches.HitByPitch:
                     this.advanceBaseRunners();
-                    this.playerAtBat.battingStats.incrementHitByPitch();
-                    this.playerPitching.pitchingStats.incrementHitByPitch();
+                    this.playerAtBat.gameStats.battingStat.incrementHitByPitch();
+                    this.playerPitching.gameStats.pitchingStat.incrementHitByPitch();
                     break;
                 case util.typeOfPitches.Strike:
                     this.incrementStrikes();
@@ -90,11 +76,11 @@ define(["require", "exports", "./player", "./position", "./scoreboard", "./utili
         }
         advanceBaseRunners(action) {
             if (this.runnerOnThirdBase) {
-                this.runnerOnThirdBase.battingStats.incrementRunsScored();
-                this.playerAtBat.battingStats.incrementRunsBattedIn();
-                this.playerPitching.pitchingStats.incrementRunsAllowed();
+                this.runnerOnThirdBase.gameStats.battingStat.incrementRunsScored();
+                this.playerAtBat.gameStats.battingStat.incrementRunsBattedIn();
+                this.playerPitching.gameStats.pitchingStat.incrementRunsAllowed();
                 if (action !== util.typeOfHits.Error) {
-                    this.playerPitching.pitchingStats.incrementEarnedRunsAllowed();
+                    this.playerPitching.gameStats.pitchingStat.incrementEarnedRunsAllowed();
                 }
                 this.scoreboard.incrementRuns(this.inning, this.homeTeam, this.teamAtBat);
                 this.runnerOnThirdBase = null;
@@ -111,16 +97,16 @@ define(["require", "exports", "./player", "./position", "./scoreboard", "./utili
         }
         incrementBalls() {
             if (this.scoreboard.incrementBalls()) {
-                this.playerAtBat.battingStats.incrementWalks();
-                this.playerPitching.pitchingStats.incrementBattersFaced();
-                this.playerPitching.pitchingStats.incrementWalks();
+                this.playerAtBat.gameStats.battingStat.incrementWalks();
+                this.playerPitching.gameStats.pitchingStat.incrementBattersFaced();
+                this.playerPitching.gameStats.pitchingStat.incrementWalks();
             }
         }
         incrementStrikes() {
             if (this.scoreboard.incrementStrikes()) {
-                this.playerAtBat.battingStats.incrementStrikeouts();
-                this.playerPitching.pitchingStats.incrementBattersFaced();
-                this.playerPitching.pitchingStats.incrementStrikeouts();
+                this.playerAtBat.gameStats.battingStat.incrementStrikeouts();
+                this.playerPitching.gameStats.pitchingStat.incrementBattersFaced();
+                this.playerPitching.gameStats.pitchingStat.incrementStrikeouts();
                 this.incrementOuts();
             }
         }
@@ -128,7 +114,7 @@ define(["require", "exports", "./player", "./position", "./scoreboard", "./utili
             if (this.isGameOver()) {
                 return;
             }
-            this.playerPitching.pitchingStats.incrementOutsRecorded();
+            this.playerPitching.gameStats.pitchingStat.incrementOutsRecorded();
             if (this.scoreboard.incrementOuts()) {
                 this.incrementInning();
             }
@@ -168,57 +154,75 @@ define(["require", "exports", "./player", "./position", "./scoreboard", "./utili
                 return false;
             }
         }
-        generateRoster(roster) {
-            var rosterLimit = 17;
-            var battingOrder = 1;
-            for (let i = 0; i < rosterLimit; i++) {
-                if (i > 13) {
-                    roster.push(new player_1.Player(this.getRandomName(roster), position_1.PositionFactory.CreateInstance(position_1.Positions.Pitcher), this.getRandomHandedness(), util.getRandomNumber(1, 99)));
-                }
-                else if (i === 13) {
-                    roster.push(new player_1.Player(this.getRandomName(roster), position_1.PositionFactory.CreateInstance(position_1.Positions.Pitcher), this.getRandomHandedness(), util.getRandomNumber(1, 99), battingOrder++));
-                }
-                else if (i > 7) {
-                    roster.push(new player_1.Player(this.getRandomName(roster), position_1.PositionFactory.CreateInstance(position_1.Positions.Utility), this.getRandomHandedness(), util.getRandomNumber(1, 99)));
-                }
-                else {
-                    roster.push(new player_1.Player(this.getRandomName(roster), this.getRandomPosition(roster), this.getRandomHandedness(), util.getRandomNumber(1, 99), battingOrder++));
-                }
-            }
-        }
-        getRandomName(roster) {
-            let rnd = util.getRandomNumber(0, this.names.length - 1);
-            for (let i = 0; i < roster.length; i++) {
-                if (roster[i].name === this.names[rnd]) {
-                    rnd = util.getRandomNumber(0, this.names.length - 1);
-                    i = 0;
-                }
-            }
-            return this.names[rnd];
-        }
-        getRandomPosition(roster) {
-            let rnd = util.getRandomNumber(0, this.positions.length - 1);
-            for (let i = 0; i < roster.length; i++) {
-                if (roster[i].position.position === this.positions[rnd].position) {
-                    rnd = util.getRandomNumber(0, this.positions.length - 1);
-                    i = 0;
-                }
-            }
-            return this.positions[rnd];
-        }
-        getRandomHandedness() {
-            return this.handedness[util.getRandomNumber(0, 1)];
-        }
-        getRoster() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "../data/names.json", true);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var data = JSON.parse(xhr.responseText);
+        getTeamRoster(team, year) {
+            let self = this;
+            let battersXhr = new XMLHttpRequest();
+            battersXhr.open("GET", "../data/batters.json", true);
+            battersXhr.onload = function () {
+                if (battersXhr.status === 200) {
+                    var data = JSON.parse(battersXhr.responseText);
+                    var players = data.find(w => w.team === team.id && w.year === year);
+                    for (let i = 0; i < players.length; i++) {
+                        let player = self.createPlayer(players[i]);
+                        player.seasonStats.battingStat.atBats(players[i].atBats);
+                        player.seasonStats.battingStat.caughtStealing(players[i].caughtStealing);
+                        player.seasonStats.battingStat.doubles(players[i].doubles);
+                        player.seasonStats.battingStat.groundedIntoDoublePlay(players[i].groundedIntoDoublePlay);
+                        player.seasonStats.battingStat.hitByPitch(players[i].hitByPitch);
+                        player.seasonStats.battingStat.hits(players[i].hits);
+                        player.seasonStats.battingStat.homeRuns(players[i].homeRuns);
+                        player.seasonStats.battingStat.runsBattedIn(players[i].runsBattedIn);
+                        player.seasonStats.battingStat.runsScored(players[i].runsScored);
+                        player.seasonStats.battingStat.sacrificeOuts(players[i].sacrificeOuts);
+                        player.seasonStats.battingStat.stolenBases(players[i].stolenBases);
+                        player.seasonStats.battingStat.strikeouts(players[i].strikeouts);
+                        player.seasonStats.battingStat.triples(players[i].triples);
+                        player.seasonStats.battingStat.walks(players[i].walks);
+                        self.addPositions(player, players[i].positions);
+                        team.roster.push(player);
+                    }
                 }
             };
-            xhr.send();
-            return [];
+            battersXhr.send();
+            var pitchersXhr = new XMLHttpRequest();
+            pitchersXhr.open("GET", "../data/pitchers.json", true);
+            pitchersXhr.onload = function () {
+                if (pitchersXhr.status === 200) {
+                    var data = JSON.parse(pitchersXhr.responseText);
+                    var players = data.find(w => w.team === team.id && w.year === year);
+                    for (let i = 0; i < players.length; i++) {
+                        let player = self.createPlayer(players[i]);
+                        player.seasonStats.pitchingStat.earnedRunsAllowed(players[i].earnedRuns);
+                        player.seasonStats.pitchingStat.gamesStarted(players[i].gamesStarted);
+                        player.seasonStats.pitchingStat.gamesFinished(players[i].gamesFinished);
+                        player.seasonStats.pitchingStat.hitByPitch(players[i].hitByPitch);
+                        player.seasonStats.pitchingStat.groundedIntoDoublePlay(players[i].groundedIntoDoublePlay);
+                        player.seasonStats.pitchingStat.hitByPitch(players[i].hitByPitch);
+                        player.seasonStats.pitchingStat.hits(players[i].hits);
+                        player.seasonStats.pitchingStat.homeRuns(players[i].homeRunsAllowed);
+                        player.seasonStats.pitchingStat.loses(players[i].loses);
+                        player.seasonStats.pitchingStat.runsAllowed(players[i].runsAllowed);
+                        player.seasonStats.pitchingStat.outsRecorded(players[i].numberOfOutsPitched);
+                        player.seasonStats.pitchingStat.sacrificeOuts(players[i].sacrificeOuts);
+                        player.seasonStats.pitchingStat.saves(players[i].saves);
+                        player.seasonStats.pitchingStat.strikeouts(players[i].strikeouts);
+                        player.seasonStats.pitchingStat.triples(players[i].triples);
+                        player.seasonStats.pitchingStat.walks(players[i].walks);
+                        player.seasonStats.pitchingStat.wins(players[i].wins);
+                        self.addPositions(player, players[i].positions);
+                        team.roster.push(player);
+                    }
+                }
+            };
+            pitchersXhr.send();
+        }
+        createPlayer(player) {
+            return new player_1.Player(player.firstName, player.lastName, player.bats, player.throws, util.getRandomNumber(1, 99));
+        }
+        addPositions(player, positions) {
+            for (let k = 0; k < positions.length; k++) {
+                player.seasonStats.addPosition(position_1.PositionFactory.CreateInstance(positions[k].position, positions[k].games, positions[k].gamesStarted, positions[k].errors));
+            }
         }
     }
     exports.Game = Game;

@@ -3,14 +3,14 @@ import { Team } from "../../ts/team";
 
 describe("when calling game methods the function", () => {
   it("constructor should create a new team", done => {
-    let tm = new Team("New York", "Mets");
+    let tm = new Team("NYM", "New York", "Mets");
 
     expect(tm).toBeDefined();
   });
 
   let game = new Game(
-    new Team("Atlanta", "Braves"),
-    new Team("St. Louis", "Cardinals")
+    new Team("ATL", "Atlanta", "Braves"),
+    new Team("STL", "St. Louis", "Cardinals")
   );
 
   describe("Generate the team rosters.", () => {

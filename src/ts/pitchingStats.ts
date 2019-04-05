@@ -8,6 +8,9 @@ export class PitchingStats extends Stats {
   loses: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 99 });
+  gamesFinished: KnockoutObservable<number> = ko
+    .observable(0)
+    .extend({ min: 0, max: 99 });
   gamesStarted: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 99 });
@@ -20,9 +23,6 @@ export class PitchingStats extends Stats {
   battersFaced: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 999 });
-  hitsAllowed: KnockoutObservable<number> = ko
-    .observable(0)
-    .extend({ min: 0, max: 999 });
   earnedRunsAllowed: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 999 });
@@ -30,8 +30,23 @@ export class PitchingStats extends Stats {
     .observable(0)
     .extend({ min: 0, max: 999 });
 
+  readonly pitchingAbility: number;
+
   constructor() {
     super();
+
+    this.pitchingAbility =
+      ((this.wins() +
+        this.saves() +
+        this.strikeouts() +
+        this.outsRecorded() -
+        this.hits() -
+        this.walks() -
+        this.homeRuns() -
+        this.runsAllowed() -
+        this.loses()) /
+        555) *
+      100;
   }
 
   incrementOutsRecorded(): void {
@@ -43,7 +58,7 @@ export class PitchingStats extends Stats {
   }
 
   incrementHitsAllowed(): void {
-    this.hitsAllowed(this.hitsAllowed() + 1);
+    this.hits(this.hits() + 1);
   }
 
   incrementEarnedRunsAllowed(): void {

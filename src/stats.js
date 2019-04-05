@@ -5,16 +5,16 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
         constructor() {
             this.walks = ko
                 .observable(0)
-                .extend({ min: 0, max: 99 });
+                .extend({ min: 0, max: 999 });
             this.strikeouts = ko
                 .observable(0)
-                .extend({ min: 0, max: 99 });
+                .extend({ min: 0, max: 999 });
             this.hitByPitch = ko
                 .observable(0)
                 .extend({ min: 0, max: 99 });
-            this.singles = ko
+            this.hits = ko
                 .observable(0)
-                .extend({ min: 0, max: 99 });
+                .extend({ min: 0, max: 999 });
             this.doubles = ko
                 .observable(0)
                 .extend({ min: 0, max: 99 });
@@ -27,6 +27,9 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
             this.sacrificeOuts = ko
                 .observable(0)
                 .extend({ min: 0, max: 99 });
+            this.groundedIntoDoublePlay = ko
+                .observable(0)
+                .extend({ min: 0, max: 99 });
         }
         incrementWalks() {
             this.walks(this.walks() + 1);
@@ -37,8 +40,8 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
         incrementHitByPitch() {
             this.hitByPitch(this.hitByPitch() + 1);
         }
-        incrementSingles() {
-            this.singles(this.singles() + 1);
+        incrementHits() {
+            this.hits(this.hits() + 1);
         }
         incrementDoubles() {
             this.doubles(this.doubles() + 1);
@@ -49,8 +52,8 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
         incrementSacrificeOuts() {
             this.sacrificeOuts(this.sacrificeOuts() + 1);
         }
-        hits() {
-            return this.singles() + this.doubles() + this.triples() + this.homeRuns();
+        singles() {
+            return this.hits() - this.doubles() - this.triples() - this.homeRuns();
         }
     }
     exports.Stats = Stats;

@@ -17,12 +17,30 @@ export class BattingStats extends Stats {
   caughtStealing: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 99 });
-  groundedIntoDoublePlay: KnockoutObservable<number> = ko
-    .observable(0)
-    .extend({ min: 0, max: 99 });
+
+  readonly hitForAverageAbility: number;
+  readonly hitForPowerAbility: number;
+  readonly speedAbility: number;
 
   constructor() {
     super();
+
+    this.hitForAverageAbility = (this.hits() / this.atBats() / 0.4) * 100;
+    this.hitForPowerAbility = (this.homeRuns() / this.atBats() / 0.075) * 100;
+    
+    let totalAttemptedSteals = this.stolenBases() + this.caughtStealing();
+
+    if (totalAttemptedSteals > 50) {
+      this.speedAbility = 90;
+    } else if (totalAttemptedSteals > 35) {
+      this.speedAbility = 80;
+    } else if (totalAttemptedSteals > 20) {
+      this.speedAbility = 70;
+    } else if (totalAttemptedSteals > 10) {
+      this.speedAbility = 60;
+    } else {
+      this.speedAbility = 45;
+    }
   }
 
   incrementAtBats(): void {

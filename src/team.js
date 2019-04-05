@@ -2,7 +2,8 @@ define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class Team {
-        constructor(name, nickname) {
+        constructor(id, name, nickname) {
+            this.id = id;
             this.name = name;
             this.nickname = nickname;
             this.batterAtPlate = 0;
@@ -10,7 +11,6 @@ define(["require", "exports"], function (require, exports) {
         }
         init() {
             this.getNextBatter();
-            this.playerPitching = this.roster.find(w => w.position.name === "SP");
         }
         getLineUp() {
             return this.roster.filter(w => w.battingOrder > 0).sort(this.sortPlayers);
@@ -31,13 +31,10 @@ define(["require", "exports"], function (require, exports) {
                 this.roster.push(teammate);
             }
         }
-        changePitcher() {
-            this.playerPitching = this.roster.find(w => w.position.name === "RP" && w.pitchingStats.battersFaced() === 0);
+        changePitcher(newPitcher) {
+            this.playerPitching = newPitcher;
         }
         changeBatter(batter) {
-            if (batter.battingStats.plateAppearances() > 0) {
-                return;
-            }
             batter.battingOrder = this.playerBatting.battingOrder;
             this.playerBatting.battingOrder = 0;
         }
@@ -50,12 +47,12 @@ define(["require", "exports"], function (require, exports) {
         }
         runs() {
             let total = 0;
-            this.roster.forEach(e => (total += e.battingStats.runsScored()));
+            this.roster.forEach(e => (total += e.gameStats.battingStat.runsScored()));
             return total;
         }
         hits() {
             let total = 0;
-            this.roster.forEach(e => (total += e.battingStats.hits()));
+            this.roster.forEach(e => (total += e.gameStats.battingStat.hits()));
             return total;
         }
     }

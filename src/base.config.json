@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "noEmitOnError": true,
+    "noImplicitAny": false,
+    "removeComments": false,
+    "sourceMap": false,
+    "module": "amd",
+    "target": "ESNext"
+  },
+  "exclude": ["node_modules", "wwwroot"]
+}

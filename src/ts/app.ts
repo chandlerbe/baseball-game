@@ -1,13 +1,12 @@
 ﻿import { Game } from "./game";
 import { Scoreboard } from "./scoreboard";
 import { Team } from "./team";
-import * as $ from "jquery";
 import * as ko from "knockout";
 
 var viewModel = {
   ballgame: new Game(
-    new Team("Pittsburgh", "Pirates"),
-    new Team("Chicago", "Cubs")
+    new Team("PIT", "Pittsburgh", "Pirates"),
+    new Team("CHN", "Chicago", "Cubs")
   )
 };
 
