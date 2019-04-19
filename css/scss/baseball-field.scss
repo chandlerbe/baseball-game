@@ -1,0 +1,173 @@
+#baseball-field {
+  background-color: $secondary-green;
+  border: 1px solid #000;
+  width: $baseball-field-width;
+  height: $baseball-field-height;
+  margin: 0 auto;
+  position: relative;
+}
+
+#baseball-infield {
+  position: absolute;
+  height: $baseball-field-width * .5;
+  width: $baseball-field-width * .5;
+  border-radius: 1% 45% 1% 1%;
+  border: 1px solid $primary-brown;
+  background-color: $primary-brown;
+  bottom: $baseball-field-height * 0.2;
+  left: $baseball-field-width * 0.25;
+  transform: rotate(-45deg);
+}
+
+#baseball-infield-grass {
+  background-color: $secondary-green;
+  position: absolute;
+  top: $baseball-field-height * .5;
+  left: $baseball-field-width * .35;
+  height: $baseball-field-width * .3;
+  width: $baseball-field-width * .3;
+  border: 2px solid $primary-green;
+  transform: rotate(-45deg);
+}
+
+#baseball-field-pitching-circle {
+  background-color: $primary-brown;
+  border-radius: 50%;
+  height: 75px;
+  width: 75px;
+  position: absolute;
+  bottom: 205px;
+  left: 312px;
+}
+#pitchers-plate {
+  position: absolute;
+  bottom: $baseball-field-height * .345;
+  left: $baseball-field-width * .4875;
+  height: 4px;
+  width: 16px;
+  border: 1px solid white;
+  background-color: white;
+}
+
+#baseball-field-homeplate-circle {
+  background-color: $primary-brown;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: $baseball-field-height * 0.82;
+  left: $baseball-field-width * 0.43;
+}
+
+.baseball-base {
+  position: absolute;
+  height: 11px;
+  width: 11px;
+  transform: rotate(-45deg);
+  border: 1px solid white;
+  background-color: white;
+  z-index: 1000;
+}
+
+#first-base {
+  bottom: $baseball-field-height * .358;
+  right: $baseball-field-width * .249;
+}
+#second-base {
+  top: $baseball-field-height * .389;
+  left: $baseball-field-width * .4925;
+}
+#third-base {
+  bottom: $baseball-field-height * .358;
+  left: $baseball-field-width * .253;
+}
+#home-plate {
+  position: absolute;
+  height: 7px;
+  width: 13px;
+  border: 1px solid white;
+  background-color: white;
+  transform: rotate(-2deg);
+  bottom: 77px;
+  left: $baseball-field-width * .4925;
+}
+#home-plate:before,
+#home-plate:after {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+#home-plate:before {
+  border-top-color: white;
+  border-width: 8px;
+  left: 60%;
+  margin-left: -9.5px;
+}
+
+.baseball-field-foulline {
+  position: absolute;
+  bottom: 187px;
+  left: 70px;
+  height: $baseball-field-height * .8;
+  width: $baseball-field-width * .8;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  border-right: 0;
+  border-top: 0;
+  transform: rotate(-45deg);
+}
+
+.half-circle {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  transform: rotate(-45deg);
+  border: 1px solid #836539;
+  background-color: #836539;
+}
+#third-circle {
+  top: 440px;
+  left: 300px;
+  border-radius: 1% 1% 100% 1%;
+}
+#first-circle {
+  top: 440px;
+  left: 642px;
+  border-radius: 100% 1% 1% 1%;
+}
+#second-circle {
+  top: 275px;
+  left: 470px;
+  border-radius: 1% 1% 1% 100%;
+}
+.batters-box {
+  position: absolute;
+  height: 25px;
+  width: 15px;
+  border: 2px solid white;
+  background-color: #836539;
+  top: 670px;
+}
+#batters-box-right {
+  box-shadow: 6px 0 #836539; /* Cover up the base line */
+  left: 461px;
+}
+#batters-box-left {
+  box-shadow: -6px 0 #836539; /* Cover up the base line */
+  left: 503px;
+}
+
+#first-base-thing {
+  top: 430px;
+  left: 667px;
+  position: absolute;
+  height: 170px;
+  width: 13px;
+  transform: rotate(45deg);
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+}

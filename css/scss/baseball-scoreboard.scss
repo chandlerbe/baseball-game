@@ -1,0 +1,21 @@
+#scoreboard {
+  background-color: $scoreboard-color;
+  border: 7px double #000;
+  color: #fff;
+  font-size: 1.5em;
+
+  th,
+  td {
+    padding: 0.2em 0.4em;
+  }
+
+  .inning {
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
+  }
+}
+
+#tblInningDetails {
+  font-size: 0.7em;
+  float: right;
+}

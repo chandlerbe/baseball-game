@@ -29,6 +29,8 @@ export class PitchingStats extends Stats {
   runsAllowed: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 999 });
+  inningsPitched: KnockoutComputed<string>;
+  earnedRunAverage: KnockoutComputed<string>;
 
   readonly pitchingAbility: number;
 
@@ -47,6 +49,17 @@ export class PitchingStats extends Stats {
         this.loses()) /
         555) *
       100;
+
+    this.inningsPitched = ko.computed(() => {
+      return (this.outsRecorded() / 3).toFixed(1);
+    });
+    
+    this.earnedRunAverage = ko.computed(() => {
+      return (
+        (this.earnedRunsAllowed() / parseFloat(this.inningsPitched())) *
+        9
+      ).toFixed(2);
+    });
   }
 
   incrementOutsRecorded(): void {
@@ -67,16 +80,5 @@ export class PitchingStats extends Stats {
 
   incrementRunsAllowed(): void {
     this.runsAllowed(this.runsAllowed() + 1);
-  }
-
-  inningsPitched(): string {
-    return (this.outsRecorded() / 3).toFixed(1);
-  }
-
-  earnedRunAverage(): string {
-    return (
-      (this.earnedRunsAllowed() / parseFloat(this.inningsPitched())) *
-      9
-    ).toFixed(2);
   }
 }

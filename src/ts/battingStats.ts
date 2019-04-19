@@ -17,6 +17,8 @@ export class BattingStats extends Stats {
   caughtStealing: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 99 });
+  battingAverage: KnockoutComputed<string>;
+  plateAppearances: KnockoutComputed<number>;
 
   readonly hitForAverageAbility: number;
   readonly hitForPowerAbility: number;
@@ -27,7 +29,7 @@ export class BattingStats extends Stats {
 
     this.hitForAverageAbility = (this.hits() / this.atBats() / 0.4) * 100;
     this.hitForPowerAbility = (this.homeRuns() / this.atBats() / 0.075) * 100;
-    
+
     let totalAttemptedSteals = this.stolenBases() + this.caughtStealing();
 
     if (totalAttemptedSteals > 50) {
@@ -41,6 +43,18 @@ export class BattingStats extends Stats {
     } else {
       this.speedAbility = 45;
     }
+
+    this.battingAverage = ko.computed(() => {
+      if (this.atBats() === 0) {
+        return ".000";
+      }
+
+      return (this.hits() / this.atBats()).toFixed(3);
+    });
+
+    this.plateAppearances = ko.computed(() => {
+      return this.atBats() + this.sacrificeOuts() + this.walks();
+    });
   }
 
   incrementAtBats(): void {
@@ -53,17 +67,5 @@ export class BattingStats extends Stats {
 
   incrementRunsBattedIn(): void {
     this.runsBattedIn(this.runsBattedIn() + 1);
-  }
-
-  plateAppearances(): number {
-    return this.atBats() + this.sacrificeOuts() + this.walks();
-  }
-
-  battingAverage(): string {
-    if (this.atBats() === 0) {
-      return ".000";
-    }
-
-    return (this.hits() / this.atBats()).toFixed(3);
   }
 }

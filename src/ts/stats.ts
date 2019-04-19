@@ -28,8 +28,13 @@ export abstract class Stats {
   groundedIntoDoublePlay: KnockoutObservable<number> = ko
     .observable(0)
     .extend({ min: 0, max: 99 });
+  singles: KnockoutComputed<number>;
 
-  constructor() {}
+  constructor() {
+    this.singles = ko.computed(() => {
+      return this.hits() - this.doubles() - this.triples() - this.homeRuns();
+    });
+  }
 
   incrementWalks(): void {
     this.walks(this.walks() + 1);
@@ -57,9 +62,5 @@ export abstract class Stats {
 
   incrementSacrificeOuts(): void {
     this.sacrificeOuts(this.sacrificeOuts() + 1);
-  }
-
-  singles(): number {
-    return this.hits() - this.doubles() - this.triples() - this.homeRuns();
   }
 }
